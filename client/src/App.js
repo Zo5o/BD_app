@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Films from "./pages/Films";
 import Screenings from "./pages/Screenings";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -10,7 +11,7 @@ function App() {
 			<Router>
 				<Navbar />
 				<Switch>
-					<Route path="/" exact component={Films} />
+					<Route path="/" exact component={Home} />
 					<Route path="/films" exact component={Films} />
 					<Route path="/screenings" exact component={Screenings} />
 				</Switch>
