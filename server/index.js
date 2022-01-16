@@ -80,6 +80,77 @@ app.delete("/deleteFilm/:id", (req, res) => {
 	});
 });
 
+// SCREENINGS
+app.post("/createScreening", (req, res) => {
+	const id_film = req.body.id_film;
+	const id_room = req.body.id_room;
+	const date = req.body.date;
+	const time = req.body.time;
+
+	db.query(
+		"INSERT INTO screening (id_film, id_room, date, time) VALUES (?,?,?,?)",
+		[id_film, id_room, date, time],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send("Values inserted");
+			}
+		}
+	);
+});
+
+app.get("/screenings", (req, res) => {
+	db.query("SELECT * FROM screening", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+app.put("/updateScreening", (req, res) => {
+	const id = req.body.id;
+	const time = req.body.time;
+	db.query(
+		"UPDATE screening SET time = ? WHERE id = ?",
+		[time, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+app.delete("/deleteScreening/:id", (req, res) => {
+	const id = req.params.id;
+	console.log(id);
+	db.query("DELETE FROM screening WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+// OLD
+app.delete("/delete/:id", (req, res) => {
+	const id = req.params.id;
+	console.log(id);
+	db.query("DELETE FROM film WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
 app.post("/create", (req, res) => {
 	db.query(
 		"INSERT INTO ticket (id_order, id_screening, id_seat, kind, price) values ('2', '6', '5', 'normal', '20')"
