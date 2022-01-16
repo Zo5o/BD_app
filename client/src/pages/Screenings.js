@@ -76,28 +76,28 @@ function Screenings() {
 	return (
 		<div className="App">
 			<div className="information">
-				<label>ID filmu:</label>
+				<label>ID Film:</label>
 				<input
 					type="text"
 					onChange={(event) => {
 						setId_film(event.target.value);
 					}}
 				/>
-				<label>ID sali:</label>
+				<label>ID Room:</label>
 				<input
 					type="text"
 					onChange={(event) => {
 						setId_room(event.target.value);
 					}}
 				/>
-				<label>Data:</label>
+				<label>Date:</label>
 				<input
 					type="number"
 					onChange={(event) => {
 						setDate(event.target.value);
 					}}
 				/>
-				<label>Godzina:</label>
+				<label>Time:</label>
 				<input
 					type="number"
 					onChange={(event) => {
@@ -115,10 +115,10 @@ function Screenings() {
 					return (
 						<div className="employee">
 							<div>
-								<h3>ID Filmu: {val.id_film}</h3>
-								<h3>ID Sali: {val.id_room}</h3>
-								<h3>Data: {val.date}</h3>
-								<h3>Godzina: {val.time}</h3>
+								<h3>ID Film: {val.id_film}</h3>
+								<h3>ID Room: {val.id_room}</h3>
+								<h3>Date: {val.date}</h3>
+								<h3>Time: {val.time}</h3>
 							</div>
 							<div>
 								{" "}
@@ -134,14 +134,14 @@ function Screenings() {
 										updateScreeningTime(val.id);
 									}}
 								>
-									Update
+									Update Time
 								</button>
 								<button
 									onClick={() => {
 										deleteScreening(val.id);
 									}}
 								>
-									Delete
+									Delete this screening
 								</button>
 							</div>
 						</div>

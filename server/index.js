@@ -138,6 +138,62 @@ app.delete("/deleteScreening/:id", (req, res) => {
 	});
 });
 
+// ROOMS
+app.post("/createRoom", (req, res) => {
+	const name = req.body.name;
+	const seats_number = req.body.seats_number;
+
+	db.query(
+		"INSERT INTO room (name, seats_number) VALUES (?,?)",
+		[name, seats_number],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send("Values inserted");
+			}
+		}
+	);
+});
+
+app.get("/rooms", (req, res) => {
+	db.query("SELECT * FROM room", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+app.put("/updateRoom", (req, res) => {
+	const id = req.body.id;
+	const seats_number = req.body.seats_number;
+	db.query(
+		"UPDATE room SET seats_number = ? WHERE id = ?",
+		[seats_number, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+app.delete("/deleteRoom/:id", (req, res) => {
+	const id = req.params.id;
+	console.log(id);
+	db.query("DELETE FROM room WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
 // OLD
 app.delete("/delete/:id", (req, res) => {
 	const id = req.params.id;

@@ -145,14 +145,14 @@ function Films() {
 										updateFilmDuration(val.id);
 									}}
 								>
-									Update
+									Update duration
 								</button>
 								<button
 									onClick={() => {
 										deleteFilm(val.id);
 									}}
 								>
-									Delete
+									Delete this film
 								</button>
 							</div>
 						</div>
