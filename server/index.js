@@ -194,6 +194,49 @@ app.delete("/deleteRoom/:id", (req, res) => {
 	});
 });
 
+// SignIn
+
+app.post('/register', (req, res) => {
+
+	const username = req.body.username;
+	const password = req.body.password;
+	const firstName = req.body.firstName;
+	const secondName = req.body.secondName;
+	const email = req.body.email;
+	const birthDate = req.body.birthDate;
+	const type = "User";
+
+	db.query("INSERT INTO person (first_name, second_name, email, birth_date) VALUES (?,?,?,?)",
+		[firstName, secondName, email, birthDate],
+		(err, result) => {
+			console.log(err);
+		})
+
+	db.query("INSERT INTO account (username, password, type) VALUES (?,?,?)",
+		[username, password, type],
+		(err, result) => {
+			console.log(err);
+		});
+});
+
+app.post('/login', (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+
+	db.query("SELECT * FROM account WHERE username = ? AND password = ?",
+		[username, password],
+		(err, result) => {
+			if (err) { res.send({ err: err }) }
+			if (result.length > 0) {
+				res.send(result);
+			}
+			else {
+				res.send({ message: "Wrong!" });
+			}
+
+		});
+})
+
 // OLD
 app.delete("/delete/:id", (req, res) => {
 	const id = req.params.id;
