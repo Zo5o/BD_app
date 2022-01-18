@@ -1,0 +1,79 @@
+.rooms {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.addRoom {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: top;
+	align-items: center;
+}
+
+.listRoom {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+}
+
+.listRoomItem {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 70%;
+	border: 1px solid;
+	margin: 10px;
+	display: flex;
+	padding: 10px;
+}
+
+.roomData {
+	font-family: "Courier New", Courier, monospace;
+}
+
+.roomEdit {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+.shortInput {
+	width: 200px;
+	height: 48px;
+	font-size: 12px;
+	padding-left: 10px;
+	margin: 5px;
+}
+
+.shortButton {
+	width: 220px;
+	height: 50px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.longInput {
+	width: 300px;
+	height: 48px;
+	font-size: 12px;
+	padding-left: 10px;
+	margin: 5px;
+}
+
+.longButton {
+	width: 320px;
+	height: 50px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.shortButton:hover {
+	cursor: pointer;
+}
+
+.longButton:hover {
+	cursor: pointer;
+}
