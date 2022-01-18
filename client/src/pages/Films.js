@@ -77,7 +77,7 @@ function Films() {
 	};
 
 	return (
-		<div className="App">
+		<div className="Film">
 			<div className="information">
 				<label>Title:</label>
 				<input
@@ -109,7 +109,7 @@ function Films() {
 				/>
 				<label>Duration:</label>
 				<input
-					type="number"
+					type="text"
 					onChange={(event) => {
 						setDuration(event.target.value);
 					}}
