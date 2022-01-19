@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import "../styles/Films.css";
 import { useState } from "react";
 import Axios from "axios";
 
@@ -77,10 +78,12 @@ function Films() {
 	};
 
 	return (
-		<div className="App">
-			<div className="information">
+		<div className="films">
+			<div className="addFilm">
+				<h1>Add new film</h1>
 				<label>Title:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setTitle(event.target.value);
@@ -88,6 +91,7 @@ function Films() {
 				/>
 				<label>Director:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setDirector(event.target.value);
@@ -95,6 +99,7 @@ function Films() {
 				/>
 				<label>Genre:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setGenre(event.target.value);
@@ -102,6 +107,7 @@ function Films() {
 				/>
 				<label>Release Year:</label>
 				<input
+					className="longInput"
 					type="number"
 					onChange={(event) => {
 						setReleaseYear(event.target.value);
@@ -109,45 +115,54 @@ function Films() {
 				/>
 				<label>Duration:</label>
 				<input
-					type="number"
+					className="longInput"
+					type="text"
 					onChange={(event) => {
 						setDuration(event.target.value);
 					}}
 				/>
 
-				<button onClick={addFilm}>Add Film</button>
+				<button className="longButton" onClick={addFilm}>
+					Add Film
+				</button>
 			</div>
 
-			<div className="employees">
+			<div className="listFilm">
+				<h1>List of films</h1>
 				<button onClick={getFilms}>Show Films</button>
 				{filmList.map((val, key) => {
 					console.log("want to show");
 					return (
-						<div className="employee">
-							<div>
+						<div className="listFilmItem">
+							<div className="filmData">
 								<h3>Title: {val.title}</h3>
 								<h3>Director: {val.director}</h3>
 								<h3>Genre: {val.genre}</h3>
 								<h3>Release Year: {val.release_year}</h3>
 								<h3>Duration: {val.duration}</h3>
 							</div>
-							<div>
+							<div className="filmEdit">
 								{" "}
 								<input
-									type="text"
-									placeholder="2000..."
+									className="shortInput"
+									type="number"
+									placeholder="224200"
 									onChange={(event) => {
 										setNewDuration(event.target.value);
 									}}
 								/>
 								<button
+									className="shortButton"
 									onClick={() => {
 										updateFilmDuration(val.id);
 									}}
 								>
 									Update duration
 								</button>
+							</div>
+							<div>
 								<button
+									className="shortButton"
 									onClick={() => {
 										deleteFilm(val.id);
 									}}

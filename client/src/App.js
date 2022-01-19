@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Films from "./pages/Films";
 import Screenings from "./pages/Screenings";
 import Rooms from "./pages/Rooms";
+import SignIn from "./pages/SignIn";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 					<Route path="/films" exact component={Films} />
 					<Route path="/screenings" exact component={Screenings} />
 					<Route path="/rooms" exact component={Rooms} />
+					<Route path="/sign_in" exact component={SignIn} />
 				</Switch>
 			</Router>
 		</div>

@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import "../styles/Rooms.css";
 import { useState } from "react";
 import Axios from "axios";
 
@@ -64,10 +65,12 @@ function Rooms() {
 	};
 
 	return (
-		<div className="App">
-			<div className="information">
+		<div className="rooms">
+			<div className="addRoom">
+				<h1>Add new room</h1>
 				<label>Name:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setName(event.target.value);
@@ -75,27 +78,34 @@ function Rooms() {
 				/>
 				<label>Seats number:</label>
 				<input
+					className="longInput"
 					type="number"
 					onChange={(event) => {
 						setSeats_number(event.target.value);
 					}}
 				/>
-				<button onClick={addRoom}>Add Room</button>
+				<button className="longButton" onClick={addRoom}>
+					Add Room
+				</button>
 			</div>
 
-			<div className="employees">
-				<button onClick={getRooms}>Show Rooms</button>
+			<div className="listRoom">
+				<h1>Show list of rooms</h1>
+				<button className="longButton" onClick={getRooms}>
+					Show Rooms
+				</button>
 				{roomList.map((val, key) => {
 					console.log("want to show");
 					return (
-						<div className="employee">
-							<div>
+						<div className="listRoomItem">
+							<div className="roomData">
 								<h3>Name: {val.name}</h3>
 								<h3>Seats number: {val.seats_number}</h3>
 							</div>
-							<div>
+							<div className="roomEdit">
 								{" "}
 								<input
+									className="shortInput"
 									type="text"
 									placeholder="2000..."
 									onChange={(event) => {
@@ -103,13 +113,17 @@ function Rooms() {
 									}}
 								/>
 								<button
+									className="shortButton"
 									onClick={() => {
 										updateRoomSeatsNumber(val.id);
 									}}
 								>
 									Update Seats number
 								</button>
+							</div>
+							<div>
 								<button
+									className="shortButton"
 									onClick={() => {
 										deleteRoom(val.id);
 									}}

@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import "../styles/Screenings.css";
 import { useState } from "react";
 import Axios from "axios";
 
@@ -74,10 +75,12 @@ function Screenings() {
 	};
 
 	return (
-		<div className="App">
-			<div className="information">
+		<div className="screenings">
+			<div className="addScreening">
+				<h1>Add new screening</h1>
 				<label>ID Film:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setId_film(event.target.value);
@@ -85,6 +88,7 @@ function Screenings() {
 				/>
 				<label>ID Room:</label>
 				<input
+					className="longInput"
 					type="text"
 					onChange={(event) => {
 						setId_room(event.target.value);
@@ -92,37 +96,42 @@ function Screenings() {
 				/>
 				<label>Date:</label>
 				<input
-					type="number"
+					className="longInput"
+					type="date"
 					onChange={(event) => {
 						setDate(event.target.value);
 					}}
 				/>
 				<label>Time:</label>
 				<input
-					type="number"
+					className="longInput"
+					type="time"
 					onChange={(event) => {
 						setTime(event.target.value);
 					}}
 				/>
 
-				<button onClick={addScreening}>Add Screening</button>
+				<button className="longButton" onClick={addScreening}>
+					Add Screening
+				</button>
 			</div>
 
-			<div className="employees">
+			<div className="listScreening">
+				<h1>List of screenings</h1>
 				<button onClick={getScreenings}>Show Screenings</button>
 				{screeningList.map((val, key) => {
-					console.log("want to show");
 					return (
-						<div className="employee">
-							<div>
+						<div className="listScreeningItem">
+							<div className="screeningData">
 								<h3>ID Film: {val.id_film}</h3>
 								<h3>ID Room: {val.id_room}</h3>
 								<h3>Date: {val.date}</h3>
 								<h3>Time: {val.time}</h3>
 							</div>
-							<div>
+							<div className="screeningEdit">
 								{" "}
 								<input
+									className="shortInput"
 									type="text"
 									placeholder="2000..."
 									onChange={(event) => {
@@ -130,13 +139,17 @@ function Screenings() {
 									}}
 								/>
 								<button
+									className="shortButton"
 									onClick={() => {
 										updateScreeningTime(val.id);
 									}}
 								>
 									Update Time
 								</button>
+							</div>
+							<div>
 								<button
+									className="shortButton"
 									onClick={() => {
 										deleteScreening(val.id);
 									}}
