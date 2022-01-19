@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../App.css";
 import { useState } from "react";
 import Axios from "axios";
+
+Axios.defaults.withCredentials = true;
 
 function SignIn() {
 
@@ -44,6 +46,14 @@ function SignIn() {
         });
     };
 
+    useEffect(() => {
+        Axios.get("http://localhost:3001/login").then((response) => {
+            if (response.data.loggedIn == true) {
+                setLoginStatus(response.data.user[0].username);
+            }
+        })
+    }, [])
+
     return (
         <div className="SignIn">
             <div className="login">
@@ -75,7 +85,7 @@ function SignIn() {
                     }}
                 />
                 <label>Password</label>
-                <input type="text"
+                <input type="password"
                     onChange={(e) => {
                         setPasswordReg(e.target.value);
                     }}

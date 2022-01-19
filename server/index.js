@@ -3,10 +3,39 @@ import bodyParser from "body-parser";
 import mysql from "mysql";
 import cors from "cors";
 
+// szyfrowanie
+import bcrypt, { hash } from "bcrypt";
+const saltRounds = 10;
+
+// JWT
+import jwt from "jsonwebtoken";
+
+// sesje i cookies
+import cookieParser from "cookie-parser";
+import session, { Session } from "express-session";
+
+import jwt from "jsonwebtoken";
+
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+	origin: ["http://localhost:3000"],
+	methods: ["GET, POST"],
+	credentials: true
+}));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+	key: "userID",
+	secret: "BD_app",
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		expires: 60 * 60 * 12,
+	},
+}))
 
 const db = mysql.createConnection({
 	user: "root",
@@ -212,28 +241,63 @@ app.post('/register', (req, res) => {
 			console.log(err);
 		})
 
-	db.query("INSERT INTO account (username, password, type) VALUES (?,?,?)",
-		[username, password, type],
-		(err, result) => {
-			console.log(err);
-		});
+	bcrypt.hash(password, saltRounds, (err, hash) => {
+
+		if (err) {
+			console.log(err)
+		}
+
+		db.query("INSERT INTO account (username, password, type) VALUES (?,?,?)",
+			[username, hash, type],
+			(err, result) => {
+				console.log(err);
+			});
+	})
+
 });
+
+app.get("/login", (req, res) => {
+	if (req.session.user) {
+		res.send({ loggedIn: true, user: req.session.user });
+	} else {
+		res.send({ loggedIn: false });
+	}
+})
 
 app.post('/login', (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 
-	db.query("SELECT * FROM account WHERE username = ? AND password = ?",
-		[username, password],
+	db.query("SELECT * FROM account WHERE username = ?",
+		username,
 		(err, result) => {
-			if (err) { res.send({ err: err }) }
+			if (err) {
+				res.send({ err: err })
+			}
 			if (result.length > 0) {
-				res.send(result);
-			}
-			else {
-				res.send({ message: "Wrong!" });
-			}
+				bcrypt.compare(password, result[0].password, (error, response) => {
+					if (response) {
+						const id = result[0].id;
+						const token = jwt.sign({ id }, "jwtBD", {
+							expiresIn: 300,
+						})
+						req.session.user = result;
 
+
+
+						//------------------
+
+
+
+						
+						res.json({auth: true, token: token, result: result});
+					} else {
+						res.send({ message: "Wrong username or password!" });
+					}
+				})
+			} else {
+				res.send({ message: "User does not exist." });
+			}
 		});
 })
 

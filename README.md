@@ -7,3 +7,17 @@ On client:
 On server:
 - npm install cors
 - npm install mysql express
+
+---
+
+new (Kuba 19.01):
+
+On server:
+npm install bcrypt
+npm install jsonwebtoken
+npm install express-session body-parser cookie-parser
+
+On database:
+
+zmiania dlugosci hasla na varchar(500)
+
