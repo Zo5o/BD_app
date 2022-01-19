@@ -17,7 +17,7 @@ function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [loginStatus, setLoginStatus] = useState('');
+    const [loginStatus, setLoginStatus] = useState(false);
 
     const register = () => {
         Axios.post('http://localhost:3001/register', {
@@ -36,12 +36,12 @@ function SignIn() {
         Axios.post('http://localhost:3001/login', {
             username: username,
             password: password,
-        }).then((Response) => {
-            if (Response.data.message) {
-                setLoginStatus(Response.data.message)
+        }).then((response) => {
+            if (!response.data.auth) {
+                setLoginStatus(false)
             }
             else {
-                setLoginStatus(Response.data[0].username)
+                setLoginStatus(true)
             }
         });
     };
@@ -49,7 +49,7 @@ function SignIn() {
     useEffect(() => {
         Axios.get("http://localhost:3001/login").then((response) => {
             if (response.data.loggedIn == true) {
-                setLoginStatus(response.data.user[0].username);
+                setLoginStatus("Logged user: " + response.data.user[0].username);
             }
         })
     }, [])
@@ -72,8 +72,13 @@ function SignIn() {
                     }}
                 />
                 <button onClick={login}>Login</button>
-                <h1>{loginStatus}</h1>
+
+                {loginStatus && (
+                <button>Check if Auth</button>
+            )}
             </div>
+
+            
 
             <div className="registration">
                 <h1>Registration</h1>

@@ -14,8 +14,6 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import session, { Session } from "express-session";
 
-import jwt from "jsonwebtoken";
-
 const app = express();
 
 app.use(express.json());
@@ -256,6 +254,27 @@ app.post('/register', (req, res) => {
 
 });
 
+const verifyJWT = (req, res, next) => {
+	const token = req.headers["x-access-token"]
+
+	if (!token) {
+		res.send("Token needed.");
+	} else {
+		jwt.verify(token, "jwtBD", (err, decoded) => {
+			if (err) {
+				res.json({ auth: false, message: "User failed to authenticate" });
+			} else {
+				req.userId = decoded.id;
+				next();
+			}
+		})
+	}
+}
+
+app.get('/isAuth', verifyJWT, (req, res) => {
+	res.send("User is authenticated");
+})
+
 app.get("/login", (req, res) => {
 	if (req.session.user) {
 		res.send({ loggedIn: true, user: req.session.user });
@@ -283,20 +302,13 @@ app.post('/login', (req, res) => {
 						})
 						req.session.user = result;
 
-
-
-						//------------------
-
-
-
-						
-						res.json({auth: true, token: token, result: result});
+						res.json({ auth: true, token: token, result: result });
 					} else {
-						res.send({ message: "Wrong username or password!" });
+						res.json({ auth: false, message: "Wrong username or password." });
 					}
 				})
 			} else {
-				res.send({ message: "User does not exist." });
+				res.json({ auth: false, message: "User does not exist." });
 			}
 		});
 })
