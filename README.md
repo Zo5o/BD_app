@@ -1,4 +1,5 @@
-On client: 
+On client:
+- npx create-react-app .
 - npm add axios
 - npm install react-router-dom@5.2.0
 - npm install @mui/material @emotion/react @emotion/styled
@@ -6,6 +7,7 @@ On client:
 - npm install flexbox
 
 On server:
+- npm init
 - npm install cors
 - npm install mysql express
 
@@ -14,11 +16,10 @@ On server:
 new (Kuba 19.01):
 
 On server:
-npm install bcrypt
-npm install jsonwebtoken
-npm install express-session body-parser cookie-parser
+- npm install bcrypt
+- npm install jsonwebtoken
+- npm install express-session body-parser cookie-parser
 
 On database:
-
-zmiania dlugosci hasla na varchar(500)
+- zmiania dlugosci hasla na varchar(500)
 
