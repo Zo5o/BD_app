@@ -108,7 +108,7 @@ function SignIn() {
                     }}
                 />
                 <label>E-mail</label>
-                <input type="text"
+                <input type="email"
                     onChange={(e) => {
                         setEmailReg(e.target.value);
                     }}

@@ -63,7 +63,7 @@ function Screenings() {
 	};
 
 	const deleteScreening = (id) => {
-		Axios.delete(`http://localhost:3001/deleteScreening/${id}`).ther(
+		Axios.delete(`http://localhost:3001/deleteScreening/${id}`).then(
 			(response) => {
 				setScreeningList(
 					screeningList.filter((val) => {
@@ -81,7 +81,7 @@ function Screenings() {
 				<label>ID Film:</label>
 				<input
 					className="longInput"
-					type="text"
+					type="number"
 					onChange={(event) => {
 						setId_film(event.target.value);
 					}}
@@ -89,7 +89,7 @@ function Screenings() {
 				<label>ID Room:</label>
 				<input
 					className="longInput"
-					type="text"
+					type="number"
 					onChange={(event) => {
 						setId_room(event.target.value);
 					}}

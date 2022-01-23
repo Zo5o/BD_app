@@ -11,7 +11,7 @@ function Films() {
 	const [release_year, setReleaseYear] = useState(0);
 	const [duration, setDuration] = useState(0);
 
-	const [newDuration, setNewDuration] = useState(0);
+	const [newDuration, setNewDuration] = useState("");
 
 	const [filmList, setFilmList] = useState([]);
 
@@ -68,7 +68,7 @@ function Films() {
 	};
 
 	const deleteFilm = (id) => {
-		Axios.delete(`http://localhost:3001/deleteFilm/${id}`).ther((response) => {
+		Axios.delete(`http://localhost:3001/deleteFilm/${id}`).then((response) => {
 			setFilmList(
 				filmList.filter((val) => {
 					return val.id != id;
@@ -98,13 +98,22 @@ function Films() {
 					}}
 				/>
 				<label>Genre:</label>
-				<input
-					className="longInput"
-					type="text"
+				<select
+					name="selectBoxGenre"
 					onChange={(event) => {
 						setGenre(event.target.value);
 					}}
-				/>
+				>
+					<option value="">--Please choose an option--</option>
+					<option value="Comedy">Comedy</option>
+					<option value="Drama">Drama</option>
+					<option value="Horror">Horror</option>
+					<option value="Thriller">Thriller</option>
+					<option value="Biographical">Biographical</option>
+					<option value="Fantasy">Fantasy</option>
+					<option value="SciFi">SciFi</option>
+					<option value="Documentary">Documentary</option>
+				</select>
 				<label>Release Year:</label>
 				<input
 					className="longInput"
@@ -117,8 +126,13 @@ function Films() {
 				<input
 					className="longInput"
 					type="text"
+					pattern="([0-5]):[0-5][0-9]$"
+					placeholder="H:MM"
 					onChange={(event) => {
-						setDuration(event.target.value);
+						if(true) {
+							setDuration(event.target.value);
+						}
+						
 					}}
 				/>
 
@@ -145,11 +159,9 @@ function Films() {
 								{" "}
 								<input
 									className="shortInput"
-									type="number"
-									placeholder="224200"
-									onChange={(event) => {
-										setNewDuration(event.target.value);
-									}}
+									type="text"
+									pattern="([0-5]):[0-5][0-9]$"
+									placeholder="H:MM"
 								/>
 								<button
 									className="shortButton"

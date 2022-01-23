@@ -40,6 +40,22 @@
 	flex-direction: row;
 }
 
+.option {
+	width: 200px;
+}
+
+select {
+	width: 316px;
+	height: 55px;
+	font-size: 14px;
+	padding-left: 10px;
+	margin: 5px;
+}
+
+input:invalid {
+	border: red solid 3px;
+  }
+
 .shortInput {
 	width: 200px;
 	height: 48px;
