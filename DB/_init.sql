@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS account;
 CREATE TABLE `account` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(500) NOT NULL,
   `type` enum('Admin','Mod','User') DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `account_ibfk_1` FOREIGN KEY (`id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
