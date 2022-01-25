@@ -17,9 +17,10 @@ function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [loginStatus, setLoginStatus] = useState(false);
+    const [loginStatus, setLoginStatus] = useState('');
 
     const register = () => {
+
         Axios.post('http://localhost:3001/register', {
             username: usernameReg,
             password: passwordReg,
@@ -30,18 +31,19 @@ function SignIn() {
         }).then((Response) => {
             console.log(Response.data);
         });
+
     };
 
     const login = () => {
         Axios.post('http://localhost:3001/login', {
             username: username,
             password: password,
-        }).then((response) => {
-            if (!response.data.auth) {
-                setLoginStatus(false)
+        }).then((Response) => {
+            if (Response.data.message) {
+                setLoginStatus(Response.data.message)
             }
             else {
-                setLoginStatus(true)
+                setLoginStatus(Response.data[0].username)
             }
         });
     };
@@ -49,7 +51,7 @@ function SignIn() {
     useEffect(() => {
         Axios.get("http://localhost:3001/login").then((response) => {
             if (response.data.loggedIn == true) {
-                setLoginStatus("Logged user: " + response.data.user[0].username);
+                setLoginStatus("User logged: " + response.data.user[0].username);
             }
         })
     }, [])
@@ -72,13 +74,8 @@ function SignIn() {
                     }}
                 />
                 <button onClick={login}>Login</button>
-
-                {loginStatus && (
-                <button>Check if Auth</button>
-            )}
+                <h1>{loginStatus}</h1>
             </div>
-
-            
 
             <div className="registration">
                 <h1>Registration</h1>
@@ -119,7 +116,10 @@ function SignIn() {
                         setBirthDateReg(e.target.value);
                     }}
                 />
-                <button onClick={register}>Register</button>
+                {(usernameReg != '' && passwordReg != '' && firstNameReg != '' && secondNameReg != '' && emailReg != ''
+                    && birthDateReg != '') &&
+                    <button onClick={register}>Register</button>
+                }
             </div>
         </div>
     );
