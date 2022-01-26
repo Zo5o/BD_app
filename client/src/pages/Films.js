@@ -122,6 +122,9 @@ function Films() {
 				<input
 					className="longInput"
 					type="number"
+					min="1950"
+					max="2030"
+					step="1"
 					onChange={(event) => {
 						setReleaseYear(event.target.value);
 					}}
