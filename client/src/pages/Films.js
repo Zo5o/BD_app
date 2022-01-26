@@ -35,6 +35,9 @@ function Films() {
 				},
 			]);
 		});
+		// }).catch(error => {
+		// 	//alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+		// });
 	};
 
 	const getFilms = () => {
@@ -79,7 +82,8 @@ function Films() {
 
 	return (
 		<div className="films">
-			<div className="addFilm">
+			
+			<form className="addFilm">
 				<h1>Add new film</h1>
 				<label>Title:</label>
 				<input
@@ -118,6 +122,9 @@ function Films() {
 				<input
 					className="longInput"
 					type="number"
+					min="1950"
+					max="2030"
+					step="1"
 					onChange={(event) => {
 						setReleaseYear(event.target.value);
 					}}
@@ -126,20 +133,18 @@ function Films() {
 				<input
 					className="longInput"
 					type="text"
-					pattern="([0-5]):[0-5][0-9]$"
+					pattern="[0-5]:[0-5][0-9]$"
 					placeholder="H:MM"
 					onChange={(event) => {
-						if(true) {
-							setDuration(event.target.value);
-						}
-						
+						setDuration(event.target.value);
 					}}
 				/>
 
 				<button className="longButton" onClick={addFilm}>
 					Add Film
 				</button>
-			</div>
+			</form>
+			
 
 			<div className="listFilm">
 				<h1>List of films</h1>
