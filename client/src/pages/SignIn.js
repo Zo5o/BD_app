@@ -116,8 +116,8 @@ function SignIn() {
                         setBirthDateReg(e.target.value);
                     }}
                 />
-                {(usernameReg != '' && passwordReg != '' && firstNameReg != '' && secondNameReg != '' && emailReg != ''
-                    && birthDateReg != '') &&
+                {(usernameReg != '' && passwordReg != '' && firstNameReg != '' && secondNameReg != ''
+                    && emailReg != '' && birthDateReg != '' && emailReg.includes('@')) &&
                     <button onClick={register}>Register</button>
                 }
             </div>
