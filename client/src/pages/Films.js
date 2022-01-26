@@ -4,6 +4,9 @@ import "../styles/Films.css";
 import { useState } from "react";
 import Axios from "axios";
 
+import "../styles/Popup.css"
+import Popup from "../components/Popup";
+
 
 function Films() {
 	const [title, setTitle] = useState("");
@@ -15,6 +18,9 @@ function Films() {
 	const [newDuration, setNewDuration] = useState("");
 
 	const [filmList, setFilmList] = useState([]);
+
+	const [addPopup, setAddPopup] = useState(false);
+	const [deletePopup, setDeletePopup] = useState(false);
 
 	const addFilm = () => {
 		Axios.post("http://localhost:3001/createFilm", {
@@ -58,13 +64,13 @@ function Films() {
 				filmList.map((val) => {
 					return val.id == id
 						? {
-								id: val.id,
-								title: val.title,
-								director: val.director,
-								genre: val.genre,
-								release_year: val.release_year,
-								duration: newDuration,
-						  }
+							id: val.id,
+							title: val.title,
+							director: val.director,
+							genre: val.genre,
+							release_year: val.release_year,
+							duration: newDuration,
+						}
 						: val;
 				})
 			);
@@ -83,7 +89,7 @@ function Films() {
 
 	return (
 		<div className="films">
-			
+
 			<form className="addFilm">
 				<h1>Add new film</h1>
 				<label>Title:</label>
@@ -141,11 +147,19 @@ function Films() {
 					}}
 				/>
 
-				<button className="longButton" onClick={addFilm}>
-					Add Film
-				</button>
+				{ title != '' && director != '' && genre != '' && release_year != '' && duration != '' &&
+					<button className="longButton" onClick={() => {
+						addFilm();
+						setAddPopup(true);
+					}}>
+						Add Film
+					</button>
+				}
+				<Popup trigger={addPopup} setTrigger={setAddPopup}>
+					<h1>Dodano nowy Film</h1>
+				</Popup>
 			</form>
-			
+
 
 			<div className="listFilm">
 				<h1>List of films</h1>

@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border:rgba(255, 255, 255, 0.322);
+    border:rgba(0, 0, 0, 0.322);
     border-color: black;
 }
 
@@ -18,7 +18,7 @@
     padding: 32px;
     width: 100%;
     max-width: 640px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 
 .popup-inner .close_button {
