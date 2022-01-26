@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
 	origin: ["http://localhost:3000"],
-	methods: ["GET, POST"],
+	methods: ["GET, POST, DELETE"],
 	credentials: true
 }));
 app.use(cookieParser());
@@ -42,11 +42,20 @@ const db = mysql.createConnection({
 	database: "cinema",
 });
 
+var connectionFlag = new Boolean(false);
+
 db.connect((err) => {
 	if (err) {
 		throw err;
 	}
 	console.log("Connected");
+	connectionFlag = true;
+});
+
+app.get("/flagcheck", (req, res) => {
+	if (connectionFlag == true) {
+		res.send("checked")
+	}
 });
 
 app.post("/createFilm", (req, res) => {
